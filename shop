@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Books</title>
+</head>
+
+<body>
+  <div id="navigation"></div>
+  <div id="books"></div>
+
+</body>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.7.0/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react?dev",
+    "react-dom/client": "https://esm.sh/react-dom/client?dev"
+  }
+}
+</script>
+<script type="text/babel" data-type="module">
+  import React, { StrictMode, useState } from 'react';
+  import { createRoot } from 'react-dom/client';
+  import ReactDOM from 'react-dom/client';
+
+
+  export function getImageUrl(person, size = 's') {
+    return (
+      person.imageId +
+      '.jpg'
+    );
+  }
+
+  function Navigation() {
+  return (
+    <div>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container-fluid">
+
+           <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i className="fas fa-bars"></i>
+        </button>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <a className="navbar-brand mt-2 mt-lg-0" href="#">
+            <img
+              src="logo.svg"
+              height="15"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
+
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="navbar-brand">
+              <a className="nav-link" href="#">г. Москва</a>
+            </li>
+            <li className="navbar-nav">
+              <a className="nav-link" href="#">Больше способов доставки</a>
+            </li>
+            <li className="navbar-nav">
+              <a className="nav-link" href="#">Платите когда хотите</a>
+            </li>
+            <li className="navbar-nav">
+              <a className="nav-link" href="#">Кем мы работаем сейчас</a>
+            </li>
+          </ul>
+
+          {/* Иконка корзины с ссылкой на shopping.html */}
+          <a className="nav-link" href="shopping.js">
+            <img
+              src="cart-shopping-svgrepo-com.svg"
+              height="15"
+              alt="MDB Logo"
+              loading="lazy"
+            />
+          </a>
+        </div>
+      </div>
+    </nav>
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <div className="container-fluid">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <a className="nav-link font-weight-bold" href="#">Женщинам</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link font-weight-bold" href="#">Мужчинам</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link font-weight-bold" href="#">Детям</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+  function Card({ product }) {
+    const [showPrice, setShowPrice] = useState(false);
+    return (
+      <div className="product-item">
+        <img className="avatar"
+          src={getImageUrl(product)}
+          alt={product.name} 
+          width = {product.imageWidth}
+          height = {product.imageHeight}/>
+        <div className="product-list">
+          <span className="price">{showPrice ? product.price : "Цена скрыта"}</span>
+        <button onClick={() => setShowPrice(!showPrice)}>Показать цену</button>
+        <a href="" className="button">В корзину</a>
+        </div>
+      </div>
+    );
+  }
+
+  function Grid({ children }) {
+    return (
+      <div id="carouselMultiItemExample" class="carousel slide carousel-dark text-center" data-mdb-ride="carousel">
+
+        <div class="carousel-inner py-4">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="row">
+                {children}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+          <button class="carousel-control-prev position-relative" type="button" data-mdb-target="#carouselMultiItemExample"
+            data-mdb-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next position-relative" type="button" data-mdb-target="#carouselMultiItemExample"
+            data-mdb-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  function Row({ children }) {
+    return (
+      <div className="col-lg-4 col-md-12 mb-4 mb-lg-0">
+        <div className="card">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  function Title({ info }) {
+    return (
+      <div class="px-4 py-5 my-5 text-center">
+
+        <h1 class="display-5 fw-bold text-body-emphasis">{info.titleMain}</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">{info.description}</p>
+        </div>
+      </div>
+    );
+  }
+
+  let App = function Books() {
+    return (
+      <div class="main">
+        <Title
+          info={{
+            titleMain: 'Женщинам'
+          }}
+        />
+        <Grid>
+          <Row>
+            <Card
+              product={{
+                name: 'С. Кинг',
+                price: '899',
+                imageId: '4',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+          <Row>
+            <Card
+              product={{
+                name: 'Братья Стругацкие',
+                price: '439',
+                imageId: '5',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+          <Row>
+            <Card
+              product={{
+                name: 'М. Зусак',
+                price: '399',
+                imageId: '6',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+                    <Row>
+            <Card
+              product={{
+                name: 'Маргарет Митчелл',
+                price: '799',
+                imageId: '4',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+          <Row>
+            <Card
+              product={{
+                name: 'Олдас Хаксли',
+                price: '259',
+                imageId: '5',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+          <Row>
+            <Card
+              product={{
+                name: 'Эрих Мария Ремарк',
+                price: '439',
+                imageId: '6',
+                imageHeight: 400,
+                imageWidth: 300
+              }}
+            />
+          </Row>
+        </Grid>
+      </div>
+    );
+  }
+
+
+
+  const navigation = createRoot(document.getElementById('navigation'));
+  navigation.render(
+    <StrictMode>
+      <Navigation />
+    </StrictMode>
+  );
+
+  function books() {
+
+    const books = ReactDOM.createRoot(document.getElementById('books'));
+    books.render(
+      <StrictMode>
+        <App />
+      </StrictMode>
+    );
+  }
+
+  books()
+
+</script>
+
+</html>
