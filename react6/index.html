@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="index.html">
+            <img class="logo" src="logo.png"/>
+        </a>
+        <div>
+            <button class="nav-button" onclick="location.href='index.html'">ТОВАРЫ</button>
+            <button class="nav-button">АДРЕСА</button>
+            <button class="nav-button">ДОСТАВКА</button>
+            <button class="nav-button" onclick="location.href='about_company.html'">О КОМПАНИИ</button>
+            <button class="nav-button" onclick="location.href='cart.html'">КОРЗИНА</button>
+        </div>
+    </div>
+
+<div id="foods" class="container mt-4"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+    function Food(props) {
+        const { food } = props;
+        const [showDetails, setShowDetails] = React.useState(false);
+
+        const toggleDetails = () => {
+            setShowDetails(!showDetails);
+        };
+
+        return (
+            <div className="col-4">
+                <div className={`card mb-3 ${showDetails ? 'expanded' : ''}`}>
+                    <img src={food.image} className="food-image" />
+                    <div className="card-body">
+                        <h5 className="card-title">{food.title}</h5>
+                        {showDetails && (
+                            <div>
+                                <p className="card-text">Цвет: {food.color}</p>
+                                <p className="card-text">Описание: {food.description}</p>
+                                <p className="card-text price">Цена: {food.price} руб.</p>
+                            </div>
+                        )}
+                        <button onClick={toggleDetails} className="btn btn-secondary">Информация</button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    function FoodList(props) {
+        const { foods } = props;
+
+        return (
+            <div>
+                <div className="row">
+                    {foods.map((food, index) => (
+                        <Food key={index} food={food} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+    const foods = [
+        {
+            title: 'Игровая консоль Nintendo Switch Lite',
+            color: 'желтый',
+            description: 'модель в пластиковом корпусе, обладающая 5,5-дюймовым сенсорным экраном разрешением 1280х720 пикселей, на котором отображается сочное, насыщенное изображение. Объем встроенной памяти равен 32 Гб.',
+            price: 15999,
+            image: '1.jpg'
+        },
+        {
+            title: 'Ноутбук TECNO Megabook T1 T15TA',
+            color: 'Серый',
+            description: 'устройство с экраном диагональю 15,6 дюйма и разрешением 1920х1080 пикселей, оснащенное IPS-матрицей, которая формирует контрастное изображение с реалистичной цветопередачей.',
+            price: 49999,
+            image: '2.jpg'
+        },
+        {
+            title: 'Смартфон Apple iPhone 13 128GB nanoSim/eSim',
+            color: 'Темная ночь',
+            description: 'Данная модель могла быть предварительно активирована. Является абсолютно новой, не проходила процедуру привязки аккаунта Apple ID. Обращаем ваше внимание, указанная выше информация не влияет на потребительские характеристики, функциональность и гарантию',
+            price: 79999,
+            image: '3.jpg'
+        },
+        {
+            title: 'Фотоаппарат компактный Ricoh WG-80',
+            color: 'Черный',
+            description: 'фотоаппарат Ricoh WG-80 Black с девятью точками фокусировки оборудован цифровым стабилизатором изображения. Серийная съемка со скоростью 8 кадр/сек',
+            price: 52499,
+            image: '4.jpg'
+        },
+        {
+            title: 'Телевизор Toshiba 40V35LE',
+            color: 'Черный',
+            description: 'Телевизор Toshiba 40V35LE с операционной системой Android 11 с интуитивно понятным интерфейсом. Благодаря безрамочному экрану просматривать фильмы и сериалы можно в комфортных условиях. Экран с технологией IPS и разрешением Full HD 1920x1080 Пикс обеспечивает оптимальное соотношение яркости и контрастности.',
+            price: 24999,
+            image: '5.jpg'
+        },
+        {
+            title: 'Робот-пылесос с базой очистки Roborock Vacuum Cleaner S8 Pro Ultra S8PU52-02',
+            color: 'Черный',
+            description: 'выполняет сухую и влажную уборку. Сила всасывания 6000 Па обеспечивает высокую эффективность. В конструкции предусмотрена многофункциональная база самоочистки. Она автоматически удаляет собранную пыль и прочий мусор из пылесборника (400 мл) после каждой уборки',
+            price: 99999,
+            image: '6.jpg'
+        },
+    ];
+
+    ReactDOM.render(
+        <FoodList foods={foods} />,
+        document.getElementById("foods")
+    );
+
+</script>
+
+<style>
+
+    .navbar {
+        background-color: #ff700ad2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .logo {
+        height: 50px;
+        width: auto;
+    }
+
+    .nav-buttons {
+        display: flex;
+    }
+
+    .nav-button {
+        background-color: #8b451300;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+    }
+
+    .nav-button:hover {
+        background-color: #9e521b00;
+        color: black;
+    }
+
+    .food-image {
+        height: 300px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .price {
+        font-weight: bold;
+    }
+
+    .card-body {
+        min-height: 120px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .btn-secondary {
+        border-radius: 10px;
+        background-color: #ff832ad2;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #ff700ad2;
+    }
+</style>
+</body>
+</html>

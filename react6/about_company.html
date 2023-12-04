@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body style="background-color: #a7673924;">
+    <div class="navbar">
+        <a href="index.html">
+            <img class="logo" src="logo.png"/>
+        </a>
+        <div>
+            <button class="nav-button" onclick="location.href='index.html'">ТОВАРЫ</button>
+            <button class="nav-button">АДРЕСА</button>
+            <button class="nav-button">ДОСТАВКА</button>
+            <button class="nav-button" onclick="location.href='about_company.html'">О КОМПАНИИ</button>
+            <button class="nav-button" onclick="location.href='cart.html'">КОРЗИНА</button>
+        </div>
+    </div>
+
+<div id="about_company" class="container mt-4"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+    function RestaurantInfo() {
+        return (
+            <div className="text-center mt-4">
+                <h1>{restaurantInfo.name}</h1>
+                <p>Наш офис: {restaurantInfo.address}</p>
+                <p>Телефон: {restaurantInfo.phone}</p>
+                <button onClick={() => location.href = 'https://maps.app.goo.gl/GcCeQbth1Dcr9MUv9'} className="btn btn-secondary">Показать на карте</button>
+            </div>
+        );
+    }
+
+    const restaurantInfo = {
+        name: 'Магазин техники "Эксперт"',
+        address: 'Улица Пушкина, дом 10, город Москва',
+        phone: '+7(495)118-13-14',
+    };
+    
+    ReactDOM.render(
+        <RestaurantInfo restaurantInfo={restaurantInfo} />,
+        document.getElementById("about_company")
+    );
+
+</script>
+
+<style>
+
+    .navbar {
+        background-color: #ff700ad2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .logo {
+        height: 50px;
+        width: auto;
+    }
+
+    .nav-buttons {
+        display: flex;
+    }
+
+    .nav-button {
+        background-color: #8b451300;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+    }
+
+    .nav-button:hover {
+        background-color: #9e521b00;
+        color: black;
+    }
+
+    .btn-secondary {
+        border-radius: 10px;
+        background-color: #ff832ad2;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #ff700ad2;
+    }
+</style>
+</body>
+</html>

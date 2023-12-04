@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body style="background-color: #a7673924;">
+    <div class="navbar">
+        <a href="index.html">
+            <img class="logo" src="logo.png"/>
+        </a>
+        <div>
+            <button class="nav-button" onclick="location.href='index.html'">ТОВАРЫ</button>
+            <button class="nav-button">АДРЕСА</button>
+            <button class="nav-button">ДОСТАВКА</button>
+            <button class="nav-button" onclick="location.href='about_company.html'">О КОМПАНИИ</button>
+            <button class="nav-button" onclick="location.href='cart.html'">КОРЗИНА</button>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; margin-top: 30px;">
+        <span style="border: 2px solid #ff832ad2; padding: 4px 25px; border-radius: 10px">Корзина</span>
+    </h2>
+
+<div id="cart" class="container mt-4"></div>
+
+<div style="text-align: center; margin-top: 20px;">
+    <p style="font-weight: bold; font-size: 18px;">Общая сумма: 1440 руб.</p>
+    <button class="btn btn-secondary" style="font-size: 22px; padding: 10px 30px;">Заказать</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<script type="text/babel">
+    function Food(props) {
+        const { food } = props;
+        const [quantity, setQuantity] = React.useState(1);
+
+        const increaseQuantity = () => {
+            setQuantity(quantity + 1);
+        };
+
+        const decreaseQuantity = () => {
+            if (quantity > 1) {
+                setQuantity(quantity - 1);
+            }
+        };
+
+        return (
+            <div className="col-4">
+                <div className="card mb-3">
+                    <img src={food.image} className="food-image" />
+                    <div className="card-body">
+                        <h5 className="card-title">{food.title}</h5>
+                        <p className="card-text price">Цена: {food.price} руб.</p>
+                        <div className="quantity-container">
+                            <button className="quantity-btn" onClick={decreaseQuantity}>-</button>
+                            <span className="quantity">{quantity}</span>
+                            <button className="quantity-btn" onClick={increaseQuantity}>+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            );
+        }
+
+    function FoodList(props) {
+        const { foods } = props;
+
+        return (
+            <div>
+                <div className="row">
+                    {foods.map((food, index) => (
+                        <Food key={index} food={food} />
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+    const foods = [
+        {
+            title: 'Фирменные драники с сёмгой',
+            price: 720,
+            image: '1.jpg'
+        },
+        {
+            title: 'Ажурные блинчики',
+            price: 250,
+            image: '2.jpg'
+        },
+        {
+            title: 'Каша пшённая с тыквой на сливках',
+            price: 470,
+            image: '3.jpg'
+        }
+    ];
+
+    ReactDOM.render(
+        <FoodList foods={foods} />,
+        document.getElementById("cart")
+    );
+
+</script>
+
+<style>
+
+    .navbar {
+        background-color: #ff700ad2;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .logo {
+        height: 50px;
+        width: auto;
+    }
+
+    .nav-buttons {
+        display: flex;
+    }
+
+    .nav-button {
+        background-color: #8b451300;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+    }
+
+    .nav-button:hover {
+        background-color: #9e521b00;
+        color: black;
+    }
+
+    .food-image {
+        height: 300px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .price {
+        font-weight: bold;
+    }
+
+    .card-body {
+        min-height: 120px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .btn-secondary {
+        border-radius: 10px;
+        background-color: #ff832ad2;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #ff700ad2;
+    }
+
+    .quantity-btn {
+        background-color: #ff832ad2;
+        color: white;
+        border: none;
+        padding: 3px 10px;
+        margin: 5px;
+        border-radius: 10px;
+    }
+
+    .quantity-btn:hover {
+        background-color: #ff700ad2;
+    }
+
+    .quantity {
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+</style>
+</body>
+</html>
